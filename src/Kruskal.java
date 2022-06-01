@@ -4,12 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 import static guru.nidi.graphviz.model.Factory.mutGraph;
 import static guru.nidi.graphviz.model.Factory.mutNode;
 
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Label;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.Link;
@@ -20,9 +23,8 @@ public class Kruskal {
     private LinkedList<ArestaKruskal> arestas;
     private ArrayList<ArrayList<Integer>> conjunto;
 
-    
-    public Kruskal(Grafo grafo){
-        this.conjunto =  new ArrayList<ArrayList<Integer>>();
+    public Kruskal(Grafo grafo) {
+        this.conjunto = new ArrayList<ArrayList<Integer>>();
         this.A = new LinkedList<ArestaKruskal>();
         this.arestas = new LinkedList<ArestaKruskal>();
         for (Vertice vertice : grafo.getVertices()) {
@@ -35,25 +37,25 @@ public class Kruskal {
         Collections.sort((LinkedList<ArestaKruskal>) this.arestas);
     }
 
-    public void criaConjunto(Integer vertice){
+    public void criaConjunto(Integer vertice) {
         ArrayList<Integer> v = new ArrayList<Integer>();
         v.add(vertice);
         this.conjunto.add(v);
     }
 
-    public void uneConjunto(Integer u, Integer v, ArrayList<Integer> conjU, ArrayList<Integer> conjV){
+    public void uneConjunto(Integer u, Integer v, ArrayList<Integer> conjU, ArrayList<Integer> conjV) {
         for (Integer conjv : conjV) {
-            if(!this.conjunto.get(u).contains(conjv)){
+            if (!this.conjunto.get(u).contains(conjv)) {
                 this.conjunto.get(u).add(conjv);
             }
         }
         this.conjunto.get(v).clear();
     }
 
-    public Boolean verificaConjunto(Integer u, Integer v){
+    public Boolean verificaConjunto(Integer u, Integer v) {
         for (Integer conjuntoU : this.conjunto.get(u)) {
             for (Integer conjuntoV : this.conjunto.get(v)) {
-                if(conjuntoU == conjuntoV){
+                if (conjuntoU == conjuntoV) {
                     return false;
                 }
             }
@@ -61,20 +63,20 @@ public class Kruskal {
         return true;
     }
 
-    public Boolean existeAresta(Integer v, Integer u){
+    public Boolean existeAresta(Integer v, Integer u) {
         for (ArestaKruskal ak : this.A) {
-            if((ak.getVerticeU() == v) && (ak.getVerticeV() == u)){
+            if ((ak.getVerticeU() == v) && (ak.getVerticeV() == u)) {
                 return false;
             }
         }
         return true;
     }
 
-    public Integer achaPosConjunto(Integer vertice){
+    public Integer achaPosConjunto(Integer vertice) {
         Integer index = 0;
         for (ArrayList<Integer> conj : this.conjunto) {
             for (Integer c : conj) {
-                if(c == vertice){
+                if (c == vertice) {
                     return index;
                 }
             }
@@ -83,42 +85,44 @@ public class Kruskal {
         return -1;
     }
 
-    public void arvoreGeradoMinima(){
+    public void arvoreGeradoMinima() {
         for (ArestaKruskal a : this.arestas) {
-            if(existeAresta(a.getVerticeV(), a.getVerticeU())){
+            if (existeAresta(a.getVerticeV(), a.getVerticeU())) {
                 Integer indexU = achaPosConjunto(a.getVerticeU());
                 Integer indexV = achaPosConjunto(a.getVerticeV());
-                if(verificaConjunto(indexU, indexV)){
-                    this.A.add(a);    
+                if (verificaConjunto(indexU, indexV)) {
+                    this.A.add(a);
                     uneConjunto(indexU, indexV, this.conjunto.get(indexU), this.conjunto.get(indexV));
                 }
             }
         }
     }
 
-    public void imprimeArvoreGeradoraMinima(){
+    public void imprimeArvoreGeradoraMinima() {
+        System.out.println("Algoritmo Kruskal: ");
         int pesoTotal = 0;
         for (ArestaKruskal a : this.A) {
-            System.out.print("("+a.getVerticeU()+","+a.getVerticeV()+") ");
+            System.out.print("(" + a.getVerticeU() + "," + a.getVerticeV() + ") ");
             pesoTotal = pesoTotal + a.getPeso();
         }
         System.out.println();
-        System.out.println("Peso total: "+pesoTotal);
+        System.out.println("Peso total: " + pesoTotal);
+        System.out.println();
     }
 
-    public void desenharKruskal(Grafo grafo){
+    public void desenharKruskal(Grafo grafo) {
         ArrayList<ArestaKruskal> conjuntoAresta = new ArrayList<ArestaKruskal>();
         MutableGraph g = mutGraph("Grafo").setDirected(false).use((gr, ctx) -> {
             for (Vertice v : grafo.getVertices()) {
                 mutNode(v.getNumero().toString());
                 for (Aresta aresta : v.getArestas()) {
                     ArestaKruskal ak = new ArestaKruskal(v.getNumero(), aresta.getDestino(), aresta.getPeso());
-                    if(existeAresta(ak, conjuntoAresta)){
+                    if (existeAresta(ak, conjuntoAresta)) {
                         mutNode(aresta.getDestino().toString());
                         Link a = mutNode(aresta.getDestino().toString()).linkTo();
-                        if(participaConjunto(ak)){
-                            a = a.with(Color.RED,Label.of(aresta.getPeso().toString()));
-                        }else{
+                        if (participaConjunto(ak)) {
+                            a = a.with(Color.RED, Label.of(aresta.getPeso().toString()));
+                        } else {
                             a = a.with(Label.of(aresta.getPeso().toString()));
                         }
                         mutNode(v.getNumero().toString()).addLink(a);
@@ -126,27 +130,35 @@ public class Kruskal {
                     conjuntoAresta.add(ak);
                 }
             }
-		});
-		try {
-			Graphviz.fromGraph(g).width(500).render(Format.PNG).toFile(new File("src/images/kruskal+"+System.currentTimeMillis()+".png"));
-            System.out.println("Desenho gerado com sucesso!");
+        });
+        try {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss");
+            Graphviz.fromGraph(g).width(500).render(Format.PNG)
+                    .toFile(new File("src/images/kruskal_" + dtf.format(LocalDateTime.now()) + ".png"));
+            System.out.println("Imagem gerada com sucesso!");
+            System.out.println();
+            Scanner in = new Scanner(System.in);
+            System.out.println("Precione enter para continuar...");
+            in.nextLine();
+            Menu menu = new Menu();
+            menu.ClearConsole();
         } catch (IOException e) {
-			e.printStackTrace();
-		}
+            e.printStackTrace();
+        }
     }
 
-    public Boolean participaConjunto(ArestaKruskal ak){
+    public Boolean participaConjunto(ArestaKruskal ak) {
         for (ArestaKruskal a : this.A) {
-            if(ak.getVerticeU() == a.getVerticeU() && ak.getVerticeV() == a.getVerticeV()){
+            if (ak.getVerticeU() == a.getVerticeU() && ak.getVerticeV() == a.getVerticeV()) {
                 return true;
             }
         }
         return false;
     }
 
-    public Boolean existeAresta(ArestaKruskal ak, ArrayList<ArestaKruskal> conjunto){
+    public Boolean existeAresta(ArestaKruskal ak, ArrayList<ArestaKruskal> conjunto) {
         for (ArestaKruskal aresta : conjunto) {
-            if((aresta.getVerticeU() == ak.getVerticeV()) && (aresta.getVerticeV() == ak.getVerticeU())){
+            if ((aresta.getVerticeU() == ak.getVerticeV()) && (aresta.getVerticeV() == ak.getVerticeU())) {
                 return false;
             }
         }

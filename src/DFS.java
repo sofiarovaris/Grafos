@@ -1,9 +1,10 @@
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class DFS{
-    
-    public enum Cores{
+public class DFS {
+
+    public enum Cores {
         BRANCO, CINZA, PRETO;
     }
 
@@ -14,25 +15,25 @@ public class DFS{
     private Integer timestamp;
     private ArrayList<Integer> ordem;
 
-    public DFS(Integer qtdVertices){
+    public DFS(Integer qtdVertices) {
         this.cor = new Cores[qtdVertices];
         this.pi = new Integer[qtdVertices];
         this.d = new Integer[qtdVertices];
         this.f = new Integer[qtdVertices];
         this.ordem = new ArrayList<Integer>();
-        for(int i=0; i<qtdVertices; i++){
+        for (int i = 0; i < qtdVertices; i++) {
             this.cor[i] = Cores.BRANCO;
             this.pi[i] = -1;
         }
     }
 
-    public void buscaProfundidadeVisit(Vertice v[], Integer index){
+    public void buscaProfundidadeVisit(Vertice v[], Integer index) {
         this.cor[index] = Cores.CINZA;
         this.timestamp = this.timestamp + 1;
         this.d[index] = this.timestamp;
         this.ordem.add(index);
         for (Aresta a : v[index].getArestas()) {
-            if(this.cor[a.getDestino()] == Cores.BRANCO){
+            if (this.cor[a.getDestino()] == Cores.BRANCO) {
                 pi[a.getDestino()] = v[index].getNumero();
                 buscaProfundidadeVisit(v, a.getDestino());
             }
@@ -42,26 +43,34 @@ public class DFS{
         this.f[index] = this.timestamp;
     }
 
-    public void buscaProfundidade(Grafo g){
+    public void buscaProfundidade(Grafo g) {
         this.timestamp = 0;
-        for(int i=0; i<g.getQtdVertices(); i++){
-            if(this.cor[i] == Cores.BRANCO){
+        for (int i = 0; i < g.getQtdVertices(); i++) {
+            if (this.cor[i] == Cores.BRANCO) {
                 buscaProfundidadeVisit(g.getVertices(), i);
             }
         }
     }
 
-    public void buscaProfundidade(Grafo g, Integer inicio){
+    public void buscaProfundidade(Grafo g, Integer inicio) {
         this.timestamp = 0;
         buscaProfundidadeVisit(g.getVertices(), inicio);
     }
 
-    public void imprimeOrdemVisitacao(){
+    public void imprimeOrdemVisitacao() {
+        System.out.println("Busca em profundidade: ");
         int tam = this.ordem.size() - 1;
-        for(int i=0; i<tam; i++){
-            System.out.print(this.ordem.get(i)+" - ");
+        for (int i = 0; i < tam; i++) {
+            System.out.print(this.ordem.get(i) + " - ");
         }
         System.out.println(this.ordem.get(tam));
+        System.out.println();
+        System.out.println("Precione enter para continuar...");
+        Scanner in = new Scanner(System.in);
+        in.nextLine();
+        Menu menu = new Menu();
+        menu.ClearConsole();
+
     }
 
 }

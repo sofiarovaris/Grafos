@@ -4,17 +4,39 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 public class Menu {
 
+    public void ClearConsole(){
+        try{
+            String operatingSystem = System.getProperty("os.name");
+              
+            if(operatingSystem.contains("Windows")){        
+                ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "cls");
+                Process startProcess = pb.inheritIO().start();
+                startProcess.waitFor();
+            } else {
+                ProcessBuilder pb = new ProcessBuilder("clear");
+                Process startProcess = pb.inheritIO().start();
+
+                startProcess.waitFor();
+            } 
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+
     public static String opcoesMenu() throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("O que gostaria de fazer com o grafo inserido?");
+        System.out.println("-----------------");
         System.out.println("1 - Busca em profundidade.");
         System.out.println("2 - Busca em largura.");
         System.out.println("3 - Bellman-Ford.");
         System.out.println("4 - Kruskal.");
         System.out.println("5 - Prim.");
-        System.out.println("6 - Desenhar Grafo.");
+        System.out.println("6 - Gerar uma imagem do grafo.");
         System.out.println("0 - Sair.");
-        System.out.println("O que deseja fazer?");
         String resposta = br.readLine();
+        Menu menu = new Menu();
+        menu.ClearConsole();
         return resposta;
     }
     
@@ -24,6 +46,8 @@ public class Menu {
         String arquivo = br.readLine();
         Grafo grafo  = new Grafo(arquivo);
 
+        Menu menu = new Menu();
+        menu.ClearConsole();
         String resposta = opcoesMenu();
         
         while (Integer.parseInt(resposta) != 0) {

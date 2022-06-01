@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Scanner;
 
 public class BFS {
-    
-    public enum Cores{
+
+    public enum Cores {
         BRANCO, CINZA, PRETO;
     }
 
@@ -14,29 +15,29 @@ public class BFS {
     private ArrayList<Integer> ordem;
     private Queue<Integer> Q;
 
-    public BFS(Integer qtdVertices){
+    public BFS(Integer qtdVertices) {
         this.cor = new Cores[qtdVertices];
         this.pi = new Integer[qtdVertices];
         this.d = new Integer[qtdVertices];
         this.ordem = new ArrayList<Integer>();
         this.Q = new LinkedList<Integer>();
-        for(int i=0; i<qtdVertices; i++){
+        for (int i = 0; i < qtdVertices; i++) {
             this.cor[i] = Cores.BRANCO;
             this.pi[i] = -1;
             this.d[i] = -1;
         }
     }
 
-    public void buscaLarguraVisit(Grafo g, int v){
+    public void buscaLarguraVisit(Grafo g, int v) {
         Vertice vertices[] = g.getVertices();
         this.cor[v] = Cores.CINZA;
         this.d[v] = 0;
         this.Q.add(v);
-        while(!this.Q.isEmpty()){
+        while (!this.Q.isEmpty()) {
             Integer u = this.Q.element();
             this.ordem.add(u);
             for (Aresta a : vertices[u].getArestas()) {
-                if(this.cor[a.getDestino()] == Cores.BRANCO){
+                if (this.cor[a.getDestino()] == Cores.BRANCO) {
                     this.cor[a.getDestino()] = Cores.CINZA;
                     this.d[a.getDestino()] = this.d[u] + 1;
                     this.pi[a.getDestino()] = u;
@@ -48,12 +49,20 @@ public class BFS {
         }
     }
 
-    public void imprimeOrdemVisitacao(){
+    public void imprimeOrdemVisitacao() {
+        System.out.println();
+        System.out.println("Busca em largura: ");
         int tam = this.ordem.size() - 1;
-        for(int i=0; i<tam; i++){
-            System.out.print(this.ordem.get(i)+" - ");
+        for (int i = 0; i < tam; i++) {
+            System.out.print(this.ordem.get(i) + " - ");
         }
         System.out.println(this.ordem.get(tam));
+        System.out.println();
+        System.out.println("Precione enter para continuar...");
+        Scanner in = new Scanner(System.in);
+        in.nextLine();
+        Menu menu = new Menu();
+        menu.ClearConsole();
     }
-    
+
 }

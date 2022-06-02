@@ -59,12 +59,12 @@ public class DesenharGrafo {
         });
         try {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss");
-            Graphviz.fromGraph(g).width(200).render(Format.PNG)
+            Graphviz.fromGraph(g).width(500).render(Format.PNG)
                     .toFile(new File("src/images/grafo_" + dtf.format(LocalDateTime.now()) + ".png"));
             System.out.println("Imagem gerada com sucesso!");
             System.out.println();
             Scanner in = new Scanner(System.in);
-            System.out.println("Precione enter para continuar...");
+            System.out.println("Pressione enter para continuar...");
             in.nextLine();
             Menu menu = new Menu();
             menu.ClearConsole();

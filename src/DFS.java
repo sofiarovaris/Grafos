@@ -65,7 +65,7 @@ public class DFS {
         }
         System.out.println(this.ordem.get(tam));
         System.out.println();
-        System.out.println("Precione enter para continuar...");
+        System.out.println("Pressione enter para continuar...");
         Scanner in = new Scanner(System.in);
         in.nextLine();
         Menu menu = new Menu();

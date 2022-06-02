@@ -127,7 +127,7 @@ public class Prim {
             System.out.println("Imagem gerada com sucesso!");
             Scanner in = new Scanner(System.in);
             System.out.println();
-            System.out.println("Precione enter para continuar...");
+            System.out.println("Pressione enter para continuar...");
             in.nextLine();
             Menu menu = new Menu();
             menu.ClearConsole();

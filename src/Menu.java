@@ -79,18 +79,26 @@ public class Menu {
                     }
                     break;
                 case 4:
-                    Kruskal kruskal = new Kruskal(grafo);
-                    kruskal.arvoreGeradoMinima();
-                    kruskal.imprimeArvoreGeradoraMinima();
-                    kruskal.desenharKruskal(grafo);
+                    if(grafo.orientado.equals("nao")){
+                        Kruskal kruskal = new Kruskal(grafo);
+                        kruskal.arvoreGeradoMinima();
+                        kruskal.imprimeArvoreGeradoraMinima();
+                        kruskal.desenharKruskal(grafo);
+                    }else{
+                        System.out.println("O grafo é orientado!");
+                    }
                     break;
                 case 5:
-                    System.out.println("Vértice de origem:");
-                    resposta = br.readLine();
-                    Prim prim = new Prim(grafo, Integer.parseInt(resposta));
-                    prim.arvoreGeradoMinima(grafo);
-                    prim.imprimeArvoreGeradoraMinima(grafo, Integer.parseInt(resposta));
-                    prim.desenharPrim(grafo);
+                    if(grafo.orientado.equals("nao")){
+                        System.out.println("Vértice de origem:");
+                        resposta = br.readLine();
+                        Prim prim = new Prim(grafo, Integer.parseInt(resposta));
+                        prim.arvoreGeradoMinima(grafo);
+                        prim.imprimeArvoreGeradoraMinima(grafo, Integer.parseInt(resposta));
+                        prim.desenharPrim(grafo);
+                    }else{
+                        System.out.println("O grafo é orientado!");
+                    }
                     break;
                 case 6:
                     DesenharGrafo dg = new DesenharGrafo(grafo);

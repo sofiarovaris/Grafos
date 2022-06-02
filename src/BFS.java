@@ -3,6 +3,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
+/* Finalidade: Classe que contém o algoritmo de busca em largura.
+ * Recebe valores de um grafo e faz a busca em largura do menor caminho.
+*/
+
 public class BFS {
 
     public enum Cores {
@@ -15,6 +19,9 @@ public class BFS {
     private ArrayList<Integer> ordem;
     private Queue<Integer> Q;
 
+    /*Finalidade: construtor para inicializar o algoritmo.
+	 * Pré condição: passar o numero de vertices.
+	 * Pós condição: Nenhum. */
     public BFS(Integer qtdVertices) {
         this.cor = new Cores[qtdVertices];
         this.pi = new Integer[qtdVertices];
@@ -28,6 +35,9 @@ public class BFS {
         }
     }
 
+    /*Finalidade: Algoritmo da busca em largura.
+	 * Pré condição: passar um grafo e o vertice inicial.
+	 * Pós condição: Nenhum. */
     public void buscaLarguraVisit(Grafo g, int v) {
         Vertice vertices[] = g.getVertices();
         this.cor[v] = Cores.CINZA;
@@ -49,6 +59,9 @@ public class BFS {
         }
     }
 
+    /*Finalidade: Imprime a ordem de visitacao do algoritmo.
+	 * Pré condição: Nenhum.
+	 * Pós condição: Nenhum. */
     public void imprimeOrdemVisitacao() {
         System.out.println();
         System.out.println("Busca em largura: ");

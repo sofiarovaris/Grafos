@@ -2,8 +2,15 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+
+/* Finalidade: Classe que contém o main para execução do programa.
+*/
 public class Menu {
 
+    /* Finalidade: Para limpar o console deixando-o mais organizado.
+    * Pré condição: Nenhum.
+	* Pós condição: Nenhum. */
     public void ClearConsole(){
         try{
             String operatingSystem = System.getProperty("os.name");
@@ -23,6 +30,9 @@ public class Menu {
         }
     }
 
+    /* Finalidade: Menu das opcoes do sistema.
+    * Pré condição: Nenhum.
+	* Pós condição: Nenhum. */
     public static String opcoesMenu() throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("O que gostaria de fazer com o grafo inserido?");

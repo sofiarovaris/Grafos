@@ -1,9 +1,17 @@
 import java.util.Scanner;
 
+
+/* Finalidade: Classe que contém o algoritmo BellmanFord.
+ * Recebe valores de um grafo e gera o menor Caminho de acordo com o algoritmo.
+*/
 public class BellmanFord {
     private Integer d[];
     private Integer pi[];
 
+
+    /*Finalidade: construtor para inicializar o algoritmo.
+	 * Pré condição: passar o grafo e o vertice de origem.
+	 * Pós condição: Nenhum. */
     public BellmanFord(Grafo g, int origem) {
         this.d = new Integer[g.getQtdVertices()];
         this.pi = new Integer[g.getQtdVertices()];
@@ -14,6 +22,9 @@ public class BellmanFord {
         this.d[origem] = 0;
     }
 
+    /*Finalidade: Gera o menor caminho.
+	 * Pré condição: passar o grafo.
+	 * Pós condição: Retorna false se o grafo possui ciclo com aresta com peso negativo. */
     public Boolean menorCaminho(Grafo g) {
         for (int i = 0; i < g.getQtdVertices() - 2; i++) {
             for (Vertice vertice : g.getVertices()) {
@@ -32,6 +43,9 @@ public class BellmanFord {
         return true;
     }
 
+    /*Finalidade: Método que diminui o limite superior do peso do menor caminho.
+	 * Pré condição: passar dois vertices e um peso da aresta entre eles.
+	 * Pós condição: Nenhum. */
     public void relaxacao(int u, int v, int w) {
         if ((this.d[v] > (this.d[u] + w) && (this.d[u] != Integer.MAX_VALUE))) {
             this.d[v] = this.d[u] + w;
@@ -39,6 +53,9 @@ public class BellmanFord {
         }
     }
 
+    /*Finalidade: Imprime o menor caminho.
+	 * Pré condição: passar o vetor de vertices e a origem.
+	 * Pós condição: Nenhum. */
     public void imprimeMenorCaminho(Vertice vertices[], int origem) {
         System.out.println("Algoritmo Bellman Ford: ");
         System.out.println("Origem: " + origem);
@@ -59,7 +76,10 @@ public class BellmanFord {
         menu.ClearConsole();
 
     }
-
+    
+    /*Finalidade: Auxilia a impressao do menor caminho.
+	 * Pré condição: passar o vertice de origem e destino.
+	 * Pós condição: Nenhum. */
     public void imprimeCaminho(int destino, int origem) {
         if (origem != destino) {
             imprimeCaminho(this.pi[destino], origem);

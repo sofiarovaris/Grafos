@@ -18,11 +18,19 @@ import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.Link;
 import guru.nidi.graphviz.model.MutableGraph;
 
+
+ /* Finalidade: Classe que contém o algoritmo Kruskal.
+ * Recebe valores de um grafo e gera a arvore minima de acordo com o algoritmo.
+*/
 public class Kruskal {
     private LinkedList<ArestaKruskal> A;
     private LinkedList<ArestaKruskal> arestas;
     private ArrayList<ArrayList<Integer>> conjunto;
 
+
+     /*Finalidade: construtor para inicializar o algoritmo.
+	 * Pré condição: passar o grafo.
+	 * Pós condição: Nenhum. */
     public Kruskal(Grafo grafo) {
         this.conjunto = new ArrayList<ArrayList<Integer>>();
         this.A = new LinkedList<ArestaKruskal>();
@@ -37,12 +45,18 @@ public class Kruskal {
         Collections.sort((LinkedList<ArestaKruskal>) this.arestas);
     }
 
+     /*Finalidade: Cria um conjunto de vertices.
+	 * Pré condição: passar um vertice.
+	 * Pós condição: Nenhum. */
     public void criaConjunto(Integer vertice) {
         ArrayList<Integer> v = new ArrayList<Integer>();
         v.add(vertice);
         this.conjunto.add(v);
     }
 
+     /*Finalidade: Une os conjuntos.
+	 * Pré condição: passar dois vertices e dois conjuntos.
+	 * Pós condição: Nenhum. */
     public void uneConjunto(Integer u, Integer v, ArrayList<Integer> conjU, ArrayList<Integer> conjV) {
         for (Integer conjv : conjV) {
             if (!this.conjunto.get(u).contains(conjv)) {
@@ -52,6 +66,9 @@ public class Kruskal {
         this.conjunto.get(v).clear();
     }
 
+     /*Finalidade: Verifica se o conjunto possui alguma vertice repetido.
+	 * Pré condição: passar dois vertices.
+	 * Pós condição: Retorna false se existir. */
     public Boolean verificaConjunto(Integer u, Integer v) {
         for (Integer conjuntoU : this.conjunto.get(u)) {
             for (Integer conjuntoV : this.conjunto.get(v)) {
@@ -63,6 +80,9 @@ public class Kruskal {
         return true;
     }
 
+     /*Finalidade: Verifica se existe a aresta.
+	 * Pré condição: passar duas arestas.
+	 * Pós condição: Retorna false se existir. */
     public Boolean existeAresta(Integer v, Integer u) {
         for (ArestaKruskal ak : this.A) {
             if ((ak.getVerticeU() == v) && (ak.getVerticeV() == u)) {
@@ -72,6 +92,9 @@ public class Kruskal {
         return true;
     }
 
+     /*Finalidade: Encontra a posicao do vertice no conjunto.
+	 * Pré condição: passar um vertice.
+	 * Pós condição: Retorna a posicao ou -1 caso nao encontre. */
     public Integer achaPosConjunto(Integer vertice) {
         Integer index = 0;
         for (ArrayList<Integer> conj : this.conjunto) {
@@ -85,6 +108,9 @@ public class Kruskal {
         return -1;
     }
 
+     /*Finalidade: Algoritmo da arvore Geradora minima.
+	 * Pré condição: Nenhum.
+	 * Pós condição: Nenhum. */
     public void arvoreGeradoMinima() {
         for (ArestaKruskal a : this.arestas) {
             if (existeAresta(a.getVerticeV(), a.getVerticeU())) {
@@ -98,6 +124,9 @@ public class Kruskal {
         }
     }
 
+     /*Finalidade: Imprime a Arvore geradora minima de acordo com o Algoritmo Kruskal.
+	 * Pré condição: Nenhum.
+	 * Pós condição: Nenhum. */
     public void imprimeArvoreGeradoraMinima() {
         System.out.println("Algoritmo Kruskal: ");
         int pesoTotal = 0;
@@ -110,6 +139,9 @@ public class Kruskal {
         System.out.println();
     }
 
+      /*Finalidade: Gera a imagem do grafo mostrando o caminho feito pelo algoritmo Kruskal.
+	 * Pré condição: passar o grafo.
+	 * Pós condição: Nenhum. */
     public void desenharKruskal(Grafo grafo) {
         ArrayList<ArestaKruskal> conjuntoAresta = new ArrayList<ArestaKruskal>();
         MutableGraph g = mutGraph("Grafo").setDirected(false).use((gr, ctx) -> {
@@ -147,6 +179,9 @@ public class Kruskal {
         }
     }
 
+     /*Finalidade: Verifica se a aresta esta no conjunto.
+	 * Pré condição: passar aresta.
+	 * Pós condição: Retorna true se existir. */
     public Boolean participaConjunto(ArestaKruskal ak) {
         for (ArestaKruskal a : this.A) {
             if (ak.getVerticeU() == a.getVerticeU() && ak.getVerticeV() == a.getVerticeV()) {
@@ -156,6 +191,9 @@ public class Kruskal {
         return false;
     }
 
+     /*Finalidade: Verifica se existe a aresta no conjunto.
+	 * Pré condição: passar aresta e conjunto.
+	 * Pós condição: Retorna false se existir. */
     public Boolean existeAresta(ArestaKruskal ak, ArrayList<ArestaKruskal> conjunto) {
         for (ArestaKruskal aresta : conjunto) {
             if ((aresta.getVerticeU() == ak.getVerticeV()) && (aresta.getVerticeV() == ak.getVerticeU())) {

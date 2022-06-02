@@ -17,11 +17,17 @@ import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.Link;
 import guru.nidi.graphviz.model.MutableGraph;
 
+ /* Finalidade: Classe que contém o algoritmo Prim.
+ * Recebe valores de um grafo e gera a arvore minima de acordo com o algoritmo.
+*/
 public class Prim {
     private Integer key[];
     private Integer pi[];
     private Queue<Integer> Q;
 
+    /*Finalidade: construtor para inicializar o algoritmo.
+	 * Pré condição: passar o grafo e o vertece de origem.
+	 * Pós condição: Nenhum. */
     public Prim(Grafo grafo, int origem) {
         this.key = new Integer[grafo.getQtdVertices()];
         this.pi = new Integer[grafo.getQtdVertices()];
@@ -34,6 +40,9 @@ public class Prim {
         this.pi[origem] = -1;
     }
 
+    /*Finalidade: Algoritmo da arvore Geradora minima.
+	 * Pré condição: Nenhum.
+	 * Pós condição: Nenhum. */
     public void arvoreGeradoMinima(Grafo grafo) {
         Vertice vertices[] = grafo.getVertices();
         while (!this.Q.isEmpty()) {
@@ -48,6 +57,9 @@ public class Prim {
         }
     }
 
+    /*Finalidade: Verifica o minimo valor do menor peso de aresta.
+	 * Pré condição: Nenhum.
+	 * Pós condição: Retorna o indice do peso minimo de aresta. */
     public Integer minimo() {
         int min = Integer.MAX_VALUE;
         int index = -1;
@@ -61,6 +73,9 @@ public class Prim {
         return index;
     }
 
+    /*Finalidade: Imprime a Arvore geradora minima de acordo com o Algoritmo Prim.
+	 * Pré condição: Nenhum.
+	 * Pós condição: Nenhum. */
     public void imprimeArvoreGeradoraMinima(Grafo grafo, int origem) {
         System.out.println("Algoritmo Prim: ");
         System.out.println();
@@ -78,6 +93,9 @@ public class Prim {
         System.out.println();
     }
 
+   /*Finalidade: Verifica se a aresta esta no conjunto.
+	 * Pré condição: passar aresta.
+	 * Pós condição: Retorna true se existir. */
     public Boolean participaConjunto(ArestaKruskal ak) {
         for (int i = 0; i < this.pi.length; i++) {
             if (this.pi[i] != -1) {
@@ -90,6 +108,9 @@ public class Prim {
         return false;
     }
 
+    /*Finalidade: Verifica se existe a aresta no conjunto.
+	 * Pré condição: passar aresta e conjunto.
+	 * Pós condição: Retorna false se existir. */
     public Boolean existeAresta(ArestaKruskal ak, ArrayList<ArestaKruskal> conjunto) {
         for (ArestaKruskal aresta : conjunto) {
             if ((aresta.getVerticeU() == ak.getVerticeV()) && (aresta.getVerticeV() == ak.getVerticeU())) {
@@ -99,6 +120,9 @@ public class Prim {
         return true;
     }
 
+    /*Finalidade: Gera a imagem do grafo mostrando o caminho feito pelo algoritmo Prim.
+	 * Pré condição: passar o grafo.
+	 * Pós condição: Nenhum. */
     public void desenharPrim(Grafo grafo) {
         ArrayList<ArestaKruskal> conjuntoAresta = new ArrayList<ArestaKruskal>();
         MutableGraph g = mutGraph("Grafo").setDirected(false).use((gr, ctx) -> {

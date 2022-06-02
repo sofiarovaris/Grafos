@@ -2,6 +2,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/* Finalidade: Classe que contém o algoritmo de busca em profundidade.
+ * Recebe valores de um grafo e faz a busca em profundidade do menor caminho.
+*/
 public class DFS {
 
     public enum Cores {
@@ -15,6 +18,9 @@ public class DFS {
     private Integer timestamp;
     private ArrayList<Integer> ordem;
 
+    /*Finalidade: construtor para inicializar o algoritmo.
+	 * Pré condição: passar o numero de vertices.
+	 * Pós condição: Nenhum. */
     public DFS(Integer qtdVertices) {
         this.cor = new Cores[qtdVertices];
         this.pi = new Integer[qtdVertices];
@@ -27,6 +33,21 @@ public class DFS {
         }
     }
 
+    /*Finalidade: Algoritmo da busca em profundidade. 
+	 * Pré condição: passar grafo.
+	 * Pós condição: Nenhum. */
+    public void buscaProfundidade(Grafo g) {
+        this.timestamp = 0;
+        for (int i = 0; i < g.getQtdVertices(); i++) {
+            if (this.cor[i] == Cores.BRANCO) {
+                buscaProfundidadeVisit(g.getVertices(), i);
+            }
+        }
+    }
+
+      /*Finalidade: Algoritmo que auxilia a busca em profundidade.
+	 * Pré condição: passar um vetor de vertice e o vertice para explorar.
+	 * Pós condição: Nenhum. */
     public void buscaProfundidadeVisit(Vertice v[], Integer index) {
         this.cor[index] = Cores.CINZA;
         this.timestamp = this.timestamp + 1;
@@ -43,20 +64,10 @@ public class DFS {
         this.f[index] = this.timestamp;
     }
 
-    public void buscaProfundidade(Grafo g) {
-        this.timestamp = 0;
-        for (int i = 0; i < g.getQtdVertices(); i++) {
-            if (this.cor[i] == Cores.BRANCO) {
-                buscaProfundidadeVisit(g.getVertices(), i);
-            }
-        }
-    }
-
-    public void buscaProfundidade(Grafo g, Integer inicio) {
-        this.timestamp = 0;
-        buscaProfundidadeVisit(g.getVertices(), inicio);
-    }
-
+    
+    /*Finalidade: Imprime a ordem de visitacao do algoritmo.
+	 * Pré condição: Nenhum.
+	 * Pós condição: Nenhum. */
     public void imprimeOrdemVisitacao() {
         System.out.println("Busca em profundidade: ");
         int tam = this.ordem.size() - 1;

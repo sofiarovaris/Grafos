@@ -4,11 +4,18 @@ import java.io.FileReader;
 import java.util.Collections;
 import java.util.LinkedList;
 
+/* Finalidade: Classe que contém a coleta do grafo apartir de um documento.
+ * Recebe valores de um arquivo.
+*/
+
 public class Grafo {
     Integer qtdVertices;
     String orientado;
     Vertice[] vertices;
 
+    /*Finalidade: construtor para pegar os dados do arquivo.
+	 * Pré condição: passar o nome do arquivo.
+	 * Pós condição: Nenhum. */
     public Grafo(String nomeArq){
         try {
             BufferedReader arq = new BufferedReader(new FileReader(new File(nomeArq)));
@@ -46,22 +53,16 @@ public class Grafo {
         this.ordenarArestas();
     }
 
+    /*Finalidade: Ordenar as arestas.
+	 * Pré condição: Nenhum.
+	 * Pós condição: Nenhum. */
     public void ordenarArestas(){
         for(int i=0; i<this.qtdVertices; i++){
             Collections.sort( (LinkedList<Aresta>) this.vertices[i].getArestas());
         }
     }
 
-    public void imprimir(){
-        for(int i=0; i<this.qtdVertices; i++){
-            System.out.println("------------");
-            System.out.println("Vértice: "+i);
-            for (Aresta a : this.vertices[i].getArestas()) {
-                System.out.println("Aresta: "+a.getDestino()+" Peso: "+a.getPeso());
-            }
-        }
-    }
-
+    // getters e setter dos atributos da classe
     public Integer getQtdVertices(){
         return this.qtdVertices;
     }
@@ -85,4 +86,5 @@ public class Grafo {
     public void setVertices(Vertice[] vertices){
         this.vertices = vertices;
     }
+    // ---------------------------------------
 }

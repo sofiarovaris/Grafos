@@ -13,10 +13,18 @@ import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.Link;
 import guru.nidi.graphviz.model.MutableGraph;
 
+
+/* Finalidade: Classe que auxilia na geracao das imagens do grafo.
+ * Recebe valores de um grafo e gera uma imagem do mesmo.
+*/
+
 public class DesenharGrafo {
     private ArrayList<ArestaKruskal> conjuntoAresta;
     private Boolean direcao;
 
+    /*Finalidade: construtor para inicializar o conjunto de arestas.
+	 * Pré condição: passar o grafo.
+	 * Pós condição: Nenhum. */
     public DesenharGrafo(Grafo grafo) {
         this.conjuntoAresta = new ArrayList<ArestaKruskal>();
         this.direcao = false;
@@ -25,6 +33,9 @@ public class DesenharGrafo {
         }
     }
 
+    /*Finalidade: Verificar se a aresta existe em um determinado conjunto.
+	 * Pré condição: passar a aresta e o conjunto de aresta.
+	 * Pós condição: Retorna false caso exista. */
     public Boolean existeAresta(ArestaKruskal ak, ArrayList<ArestaKruskal> conjunto) {
         for (ArestaKruskal aresta : conjunto) {
             if ((aresta.getVerticeU() == ak.getVerticeV()) && (aresta.getVerticeV() == ak.getVerticeU())) {
@@ -34,6 +45,9 @@ public class DesenharGrafo {
         return true;
     }
 
+    /*Finalidade: Gera a imagem do grafo.
+	 * Pré condição: passar o grafo.
+	 * Pós condição: Nenhum. */
     public void gerarDesenho(Grafo grafo) {
         MutableGraph g = mutGraph("Grafo").setDirected(direcao).use((gr, ctx) -> {
             for (Vertice v : grafo.getVertices()) {

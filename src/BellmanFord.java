@@ -70,7 +70,7 @@ public class BellmanFord {
         }
         System.out.println();
         Scanner in = new Scanner(System.in);
-        System.out.println("Precione enter para continuar...");
+        System.out.println("Pressione enter para continuar...");
         in.nextLine();
         Menu menu = new Menu();
         menu.ClearConsole();

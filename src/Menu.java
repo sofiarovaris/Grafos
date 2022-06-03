@@ -63,9 +63,19 @@ public class Menu {
         while (Integer.parseInt(resposta) != 0) {
             switch (Integer.parseInt(resposta)) {
                 case 1:
-                    DFS dfs = new DFS(grafo.getQtdVertices());
-                    dfs.buscaProfundidade(grafo);
-                    dfs.imprimeOrdemVisitacao();
+                    System.out.println("Deseja selecionar um vértice de origem? 1-Sim / 2-Não");
+                    resposta = br.readLine();
+                    if(Integer.parseInt(resposta) == 1){
+                        System.out.println("Vértice de origem:");
+                        resposta = br.readLine();
+                        DFS dfs = new DFS(grafo.getQtdVertices());
+                        dfs.buscaProfundidade(grafo, Integer.parseInt(resposta));
+                        dfs.imprimeOrdemVisitacao();
+                    }else{
+                        DFS dfs = new DFS(grafo.getQtdVertices());
+                        dfs.buscaProfundidade(grafo);
+                        dfs.imprimeOrdemVisitacao();
+                    }
                     break;
                 case 2:
                     BFS bfs = new BFS(grafo.getQtdVertices());

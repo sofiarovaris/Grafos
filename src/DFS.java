@@ -45,6 +45,14 @@ public class DFS {
         }
     }
 
+    /*Finalidade: Algoritmo da busca em profundidade com vértice inicial. 
+	 * Pré condição: passar grafo e o vértice de início.
+	 * Pós condição: Nenhum. */
+    public void buscaProfundidade(Grafo g, Integer inicio) {
+        this.timestamp = 0;
+        buscaProfundidadeVisit(g.getVertices(), inicio);
+    }
+
       /*Finalidade: Algoritmo que auxilia a busca em profundidade.
 	 * Pré condição: passar um vetor de vertice e o vertice para explorar.
 	 * Pós condição: Nenhum. */

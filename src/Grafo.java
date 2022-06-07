@@ -4,7 +4,7 @@ import java.io.FileReader;
 import java.util.Collections;
 import java.util.LinkedList;
 
-/* Finalidade: Classe que contém a coleta do grafo apartir de um documento.
+/* Finalidade: Classe que contém a coleta do grafo a partir de um arquivo txt.
  * Recebe valores de um arquivo.
 */
 

@@ -20,7 +20,7 @@ import guru.nidi.graphviz.model.MutableGraph;
 
 
  /* Finalidade: Classe que contém o algoritmo Kruskal.
- * Recebe valores de um grafo e gera a arvore minima de acordo com o algoritmo.
+ * Recebe valores de um grafo e gera a arvore geradora minima de acordo com o algoritmo.
 */
 public class Kruskal {
     private LinkedList<ArestaKruskal> A;

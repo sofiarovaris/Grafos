@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 
 /* Finalidade: Classe que contém o algoritmo BellmanFord.
- * Recebe valores de um grafo e gera o menor Caminho de acordo com o algoritmo.
+ * Recebe valores de um grafo e gera o menor caminho de acordo com o algoritmo.
 */
 public class BellmanFord {
     private Integer d[];

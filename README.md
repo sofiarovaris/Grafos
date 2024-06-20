@@ -8,9 +8,9 @@ This project is an implementation of various graph search algorithms, developed 
 
 1. Clone this repository:
 
-   \```bash
+   ```bash
    git clone https://github.com/sofiarovaris/Grafos.git
-   \```
+   ```
 
 2. Compile and run the Java program.
 

@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is an implementation of various graph search algorithms, developed as part of the Design and Analysis of Algorithms discipline.
+This project is an implementation of various graph search algorithms, developed for a company that required optimized solutions for navigating and analyzing complex networks in their system.
 
 ## Usage
 
